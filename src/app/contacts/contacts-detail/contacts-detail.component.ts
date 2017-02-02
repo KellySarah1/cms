@@ -6,7 +6,7 @@ import { Contact } from "../contact";
   templateUrl: './contacts-detail.component.html',
 })
 export class ContactsDetailComponent implements OnInit {
- @Input() selectedContact: Contact; //a class input variable. it references Contact.
+  @Input() selectedContact: Contact; //a class input variable. it references Contact.
 
   constructor() { }
 

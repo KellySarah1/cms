@@ -1,17 +1,17 @@
-
 <cms-header></cms-header>
-<cms-contact-list (selectedContact)="selectedContact = $event"></cms-contact-list>
-<cms-contacts-detail [selectedContact]="selectedContact"></cms-contacts-detail>
-<cms-contacts-group [selectedContact]="selectedContact"></cms-contacts-group>
-  <!--
-  <div class="row">
-  <div class="col-md-5">
-    </div>
-  <div class="col-md-7">
-    <cms-contacts-detail [selectedContact]="selectedContact"></cms-contacts-detail>
-    <cms-contacts-group></cms-contacts-group>
-    <cms-contact-list (recipeSelected)="selectedContact = $event"></cms-contact-list>
+<div class="container">
+  <cms-contacts></cms-contacts>
+</div>
+<!--
+<div class="row">
+<div class="col-md-5">
   </div>
-  </div>
-  -->
+<div class="col-md-7">
+  <cms-contacts-detail [selectedContact]="selectedContact"></cms-contacts-detail>
+  <cms-contacts-group></cms-contacts-group>
+  <cms-contact-list (recipeSelected)="selectedContact = $event"></cms-contact-list>
+</div>
+</div>
+-->
+
 
