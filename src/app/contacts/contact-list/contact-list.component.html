@@ -1,5 +1,3 @@
-<div class="row">
-  <div class="col-xs-5 col-xs-offset-1">
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="panel-title pull-left">
@@ -11,24 +9,29 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-xs-12">
-        <ul class= "list-group">
-          <cms-contact-item [contact]="contact" (click)="onSelected(contact)"></cms-contact-item>
-          </ul>
+            <ul class= "list-group">
+              <cms-contact-item *ngFor="let contact of contacts" [contact]="contact" (click)="onSelected(contact)"></cms-contact-item>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-</div>
 
 
 <!--
-<div class="row">
-  <div class="col-xs-12">
-    <ul class="list-group">
-      <cms- <div class="ccontact]="contact" (click)="onSelected(contact)"></cms-contact-item>
-    </ul>
-  </div>
+  <div class="row">
+<div class="col-xs-12">
+<ul class="list-group">
+<cms- <div class="ccontact]="contact" (click)="onSelected(contact)"></cms-contact-item>
+</ul>
 </div>
--->
+</div>
 
+<cms-contact-item> *ngfor="let contact of contacts; let i = index" [contact]="contact" [contactId]="i"></cms-contact-item>
+
+<div class="row">
+  <div class="col-xs-5 col-xs-offset-1">
+   </div>
+</div>
+
+-->
