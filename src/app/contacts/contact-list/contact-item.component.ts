@@ -7,6 +7,9 @@ import {Contact} from "../contact";
 export class ContactItemComponent implements OnInit {
   @Input() contact: Contact;
   contactId: number;
+
+  @Input() contactIdx: ContactItemComponent; // number datatype
+
   constructor() { }
 
   ngOnInit() {

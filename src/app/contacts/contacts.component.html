@@ -2,9 +2,8 @@
   <div class="col-md-5">
     <cms-contact-list (selectedContact)="selectedContact = $event"></cms-contact-list>
   </div>
-  <div *ngIf="selectedContact !== null" class="col-mid-4">
-    <cms-contacts-detail *ngIf="selectedContact.group === null" [selectedContact]="selectedContact" ></cms-contacts-detail>
-    <cms-contacts-group *ngIf="selectedContact.group !== null" [selectedContact]="selectedContact"></cms-contacts-group>
+  <div class="col-sm-9 col-sx-12">
+    <router-outlet class="fill"></router-outlet>
   </div>
 </div>
 

@@ -8,7 +8,7 @@ export class ContactsService {
   constructor() { }
 
   getContact(idx:number) { //check this step #4 on instruction: create contact service
-   return this.contacts;
+   return this.contacts[idx];
   }
 
   getContacts() {

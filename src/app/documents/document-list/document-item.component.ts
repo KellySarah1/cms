@@ -9,6 +9,8 @@ export class DocumentItemComponent implements OnInit {
 
   @Input() document: Document;
 
+  @Input() documentIdx: DocumentItemComponent; //number datatype
+
   constructor() { }
 
   ngOnInit() {

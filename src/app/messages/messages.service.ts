@@ -15,10 +15,8 @@ export class MessagesService {
 
   getMessage(idx: number){
 
-    return this.messages = Message[idx]; //check this step 4, d.
-
+    return this.messages[idx]; //check this step 4, d.
   }
-
 
 }
 
