@@ -5,9 +5,57 @@ import { Contact } from "./contact";
 export class ContactsService {
 
   contacts: Contact[] = [];
-  constructor() { }
+  currentContact: Contact;
 
-  getContact(idx:number) { //check this step #4 on instruction: create contact service
+  constructor() {
+    //this.contacts = this.initContacts();
+    this.currentContact = new Contact("18", "Tom McKay", "mcKay@byui.edu", "208-496-2112", "../../images/tomMcKay.png", null);
+  }
+
+
+
+  getContactById(id: string): Contact {
+    return this.contacts.find((contact: Contact)  =>  contact.contactId === id);
+  }
+
+  addContact(contact: Contact){
+    if (!contact)
+      return;
+    this.contacts.push(contact);
+    this.contacts = this.contacts.sort(this.compareNames);
+  }
+
+  updateContact(oldContact: Contact, newContact: Contact){
+    if (!oldContact || !newContact){
+      return;
+    }
+
+    this.contacts[this.contacts.indexOf(oldContact)] = newContact;
+    this.contacts = this.contacts.sort(this.compareNames);
+    //this.storeContacts();
+  }
+
+  deleteContact(contact: Contact) {
+    if (!contact) {
+      return;
+    }
+
+    const pos = this.contacts.indexOf(contact);
+    if (pos < 0) {
+      return;
+    }
+
+    this.contacts.splice(pos, 1);
+    this.contacts = this.contacts.sort(this.compareNames);
+    // this.storeContacts()
+   }
+
+
+  getCurrentContact(){
+    return this.currentContact;
+  }
+
+  getContact(idx:number) {
    return this.contacts[idx];
   }
 
@@ -54,7 +102,6 @@ export class ContactsService {
 
     // sort by name
     this.contacts = this.contacts.sort(this.compareNames);
-
     return this.contacts;
   }
 

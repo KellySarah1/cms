@@ -14,12 +14,21 @@ export class DocumentsService {
   }
 
   getDocument(idx: number){
-
     return this.documents[idx]; //check this step 4, d.
   }
 
   deleteDocument(document: Document) {
     this.documents.splice(this.documents.indexOf(document), 1)
+  }
+
+  addDocument(document: Document){
+    this.documents.push(document);
+  }
+
+  updateDocument(oldDoc: Document, newDoc: Document){
+
+    this.documents[this.documents.indexOf(oldDoc)] = newDoc;
+
   }
 
 }

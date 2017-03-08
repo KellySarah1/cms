@@ -18,6 +18,10 @@ export class MessagesService {
     return this.messages[idx]; //check this step 4, d.
   }
 
-}
 
+  addMessage(message: Message) {
+    this.messages.push(message);
+  }
+
+}
 

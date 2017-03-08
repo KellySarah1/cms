@@ -10,7 +10,9 @@
         <div class="row">
           <div class="col-xs-12">
             <ul class= "list-group">
-              <cms-contact-item *ngFor="let contact of contacts; let i = index" [contact]="contact" (click)="onSelected(contact)"[contactIdx]="i"></cms-contact-item>
+              <cms-contact-item *ngFor="let contact of contacts; let i = index" [contact]="contact" (click)="onSelected(contact)"[contactIdx]="i"
+                                  dnd-draggable [dragEnabled]="true" [dragData]="contact" [dropZones]="['demo1']">
+              </cms-contact-item>
             </ul>
           </div>
         </div>
