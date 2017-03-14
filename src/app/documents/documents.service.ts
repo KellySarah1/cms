@@ -55,7 +55,6 @@ export class DocumentsService {
 
   initDocuments() {
     return this.http.get('https://kellysarahcms.firebaseio.com/documents.json')
-    //return this.http.get('https://kellysarahcms.firebaseio.com')
       .map((response: Response) => response.json())
       .subscribe(
         (data: Document[]) => {

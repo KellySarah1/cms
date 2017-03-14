@@ -1,27 +1,57 @@
-import { Injectable } from '@angular/core';
-import { Message } from './message';
-import { MOCKMESSAGES } from './MOCKMESSAGES';
+import {Injectable, EventEmitter} from '@angular/core';
+import {Message} from './message';
+import 'rxjs/Rx';
+import {Http, Response, Headers} from "@angular/http";
 
 @Injectable()
 export class MessagesService {
 
+
+  currentMessageId: string;
   messages: Message[] = [];
-  constructor() { }
+  getMessagesEventEmitter = new EventEmitter<Message[]>();
 
-  getMessages(){ //check this
 
-    return this.messages = MOCKMESSAGES; //check this from step 4, c. in Create the message class.. messageService:MessagesService
+  constructor(private http: Http) {
+    this.initMessages();
+    this.currentMessageId = '1';
   }
 
-  getMessage(idx: number){
+  getMessages() { //check this
+    return this.messages;
+  }
 
-    return this.messages[idx]; //check this step 4, d.
+  getMessage(idx: number) {
+    return this.messages[idx];
   }
 
 
   addMessage(message: Message) {
     this.messages.push(message);
+    this.storeMessages();
   }
+
+
+  initMessages() {
+    return this.http.get('https://kellysarahcms.firebaseio.com/messages.json')
+      .map((response: Response) => response.json())
+      .subscribe(
+        (data: Message[]) => {
+          this.messages = data;
+          this.getMessagesEventEmitter.emit(this.messages);
+        }
+      )
+  }
+
+  storeMessages() {
+    const body = JSON.stringify(this.messages);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put('https://kellysarahcms.firebaseio.com/messages.json', body, {headers: headers}).toPromise();
+  }
+
 
 }
 
