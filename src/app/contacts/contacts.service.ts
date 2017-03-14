@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
 import { Contact } from "./contact";
 
 @Injectable()
@@ -6,11 +6,23 @@ export class ContactsService {
 
   contacts: Contact[] = [];
   currentContact: Contact;
+  getContactsEventEmitter = new EventEmitter<Document[]>();
+
 
   constructor() {
     //this.contacts = this.initContacts();
     this.currentContact = new Contact("18", "Tom McKay", "mcKay@byui.edu", "208-496-2112", "../../images/tomMcKay.png", null);
   }
+
+  /*
+
+   constructor() {
+   //this.contacts = this.initContacts();
+   this.currentContact = new Contact("18", "Tom McKay", "mcKay@byui.edu", "208-496-2112", "../../images/tomMcKay.png", null);
+   }
+
+   */
+
 
 
 
@@ -49,6 +61,9 @@ export class ContactsService {
     this.contacts = this.contacts.sort(this.compareNames);
     // this.storeContacts()
    }
+
+  initContacts() {
+  }
 
 
   getCurrentContact(){

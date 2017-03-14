@@ -1,34 +1,77 @@
-import { Injectable } from '@angular/core';
-import { Document } from './document';
-import { MOCKDOCUMENTS } from './MOCKDOCUMENTS';
+import {Injectable, EventEmitter} from '@angular/core';
+import {Document} from './document';
+import 'rxjs/Rx';
+import {Http, Response, Headers} from "@angular/http";
 
 @Injectable()
 export class DocumentsService {
 
+  //currentDocumentObj: Document;
+  currentDocumentId: string;
   documents: Document[] = [];
-  constructor() { }
+  getDocumentsEventEmitter = new EventEmitter<Document[]>();
 
-  getDocuments(){ //check this
 
-    return this.documents = MOCKDOCUMENTS; //check this from step 4, c. in Create the message class.. messageService:MessagesService
+  constructor(private http: Http) {
+    this.initDocuments();
+     this.currentDocumentId = '1';
   }
 
-  getDocument(idx: number){
-    return this.documents[idx]; //check this step 4, d.
+  getDocuments() { //check this
+
+    return this.documents;
+  }
+
+
+
+  getDocument(idx: number) {
+    return this.documents[idx];
+  }
+
+  addDocument(document: Document) {
+    this.documents.push(document);
+    this.storeDocuments();
   }
 
   deleteDocument(document: Document) {
-    this.documents.splice(this.documents.indexOf(document), 1)
+    if (!document) {
+      return;
+    }
+
+    const pos = this.documents.indexOf(document);
+    if (pos < 0){
+      return;
+    }
+    //this.documents.splice(this.documents.indexOf(document), 1);
+    this.documents.splice(pos, 1);
+    this.storeDocuments();
   }
 
-  addDocument(document: Document){
-    this.documents.push(document);
-  }
-
-  updateDocument(oldDoc: Document, newDoc: Document){
-
+  updateDocument(oldDoc: Document, newDoc: Document) {
     this.documents[this.documents.indexOf(oldDoc)] = newDoc;
+    this.storeDocuments();
 
+  }
+
+  initDocuments() {
+    return this.http.get('https://kellysarahcms.firebaseio.com/documents.json')
+    //return this.http.get('https://kellysarahcms.firebaseio.com')
+      .map((response: Response) => response.json())
+      .subscribe(
+        (data: Document[]) => {
+          this.documents = data;
+          this.getDocumentsEventEmitter.emit(this.documents);
+        }
+      )
+  }
+
+  storeDocuments(){
+    const body = JSON.stringify(this.documents);
+    const headers = new Headers({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put('https://kellysarahcms.firebaseio.com/documents.json', body, {headers: headers}).toPromise();
   }
 
 }
