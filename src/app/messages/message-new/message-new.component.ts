@@ -4,6 +4,8 @@ import {ContactsService} from "../../contacts/contacts.service";
 import {MessagesService} from "../messages.service";
 import {Router} from "@angular/router";
 import {Message} from "../message";
+import {Subscription} from "rxjs";
+import {subscriptionLogsToBeFn} from "rxjs/testing/TestScheduler";
 
 @Component({
   selector: 'cms-message-new',
@@ -14,6 +16,7 @@ export class MessageNewComponent implements OnInit {
   // isAdd = true;
   //@Input() item: Ingredient;
   sender: Contact;
+  subscription: Subscription;
 
   constructor(private contactsService: ContactsService,
               private messagesService: MessagesService,
@@ -26,7 +29,7 @@ export class MessageNewComponent implements OnInit {
 
   onSubmit(value) {
     const newMessage = new Message("", this.sender.name, "", value.message);
-    this.messagesService.addMessage(newMessage);
+    this.messagesService.addMessage(newMessage).subscribe();
     this.router.navigate(['messages']);
   }
 

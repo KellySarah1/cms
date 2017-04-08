@@ -1,6 +1,7 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {Contact} from "../contact";
 import {ContactsService} from "../contacts.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'cms-contact-list',
@@ -13,15 +14,17 @@ export class ContactListComponent implements OnInit {
   contact: Contact = null;
   contacts: Contact[] = [];
   term: string = "";
+  subscription: Subscription;
 
   constructor(private contactsService:ContactsService) {
-
-    //double check this on step 3 on instruction:Create contact service
+    this.subscription = this.contactsService.getContactsEventEmitter.subscribe(
+      (contacts: Contact[]) => this.contacts = contacts
+    );
   }
 
   ngOnInit() {
-    this.contacts =this.contactsService.getContacts();
-    this.contactsService.getContactsEventEmitter.subscribe(
+    this.contactsService.getContacts()
+      .subscribe(
       (contacts: Contact[]) => this.contacts = contacts
     );
 
